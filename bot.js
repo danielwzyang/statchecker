@@ -9,6 +9,7 @@ const authflow = new Authflow(process.env.EMAIL, process.env.CACHE, {
     authTitle: "statchecker",
     deviceType: "Win32",
     flow: "msal",
+    password: process.env.PASSWORD
 })
 
 // fetch mojang uuid
