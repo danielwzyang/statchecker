@@ -90,9 +90,10 @@ async function startBot() {
         bot.on("message", (msg) => {
             const text = msg.getText()
 
+            console.log(`>> ${text}`)
+
             // if message is a dm or an officer chat message
             if (text.startsWith("From") || text.startsWith("Officer")) {
-                console.log(`>> ${text}`)
                 let tokens = text.split(" ")
                 let nameIndex = 0
 
