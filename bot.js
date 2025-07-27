@@ -122,9 +122,11 @@ async function startBot() {
 
             // antispam protocol
             else if (text.startsWith("You cannot say")) {
-                // send a series of 3 messages
-
-                "abc".split("").forEach((e, i) => {
+                // send a series of messages
+                [
+                    "flagged for spam! please try again after the next 3 messages.",
+                    ..."abc".split("")
+                ].forEach((e, i) => {
                     setTimeout(function () {
                         console.log("<<", `/oc ${e}`)
                         bot.chat(`/oc ${e}`)
