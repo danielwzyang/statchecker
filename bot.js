@@ -125,10 +125,10 @@ async function startBot() {
             else if (text.startsWith("You cannot say")) {
                 // send a series of 3 messages
 
-                "abc".split("").forEach((e) => {
+                "abc".split("").forEach((e, i) => {
                     setTimeout(function () {
                         bot.chat(`/oc ${e}`)
-                    }, 500)
+                    }, 500 * i)
                 })
             }
         })
