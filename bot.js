@@ -111,9 +111,8 @@ async function startBot() {
                                 if (!stats) return console.log("stats not found")
 
                                 console.log("stats found")
-                                bot.chat(
-                                    `/oc ${name}: ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`
-                                )
+                                console.log("<<", `/oc ${name}: ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`)
+                                bot.chat(`/oc ${name}: ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`)
                             })
                         })
 
@@ -127,6 +126,7 @@ async function startBot() {
 
                 "abc".split("").forEach((e, i) => {
                     setTimeout(function () {
+                        console.log("<<", `/oc ${e}`)
                         bot.chat(`/oc ${e}`)
                     }, 500 * i)
                 })
@@ -138,6 +138,7 @@ async function startBot() {
 
             // warp to home
             setTimeout(function () {
+                console.log("<<", "/home")
                 bot.chat("/home")
             }, 2000)
         })
