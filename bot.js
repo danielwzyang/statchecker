@@ -56,23 +56,6 @@ async function getBedwarsStats(uuid) {
     }
 }
 
-// generate sequence of random characters
-function generateAntiSpamTag() {
-    const set = "!@#$%^&*()_+{}[]|:;<>,.?/~`-="
-    let res = ""
-    
-    const minLength = 5;
-    const maxLength = 20;
-    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-
-    for (let i = 0; i < length; i++) {
-        const j = Math.floor(Math.random() * set.length)
-        res += set[j]
-    }
-
-    return `[ANTISPAM: ${res}]`
-}
-
 async function startBot() {
     try {
         const session = await authflow.getMinecraftJavaToken()
@@ -131,12 +114,22 @@ async function startBot() {
 
                                 console.log("stats found")
                                 bot.chat(
-                                    `/msg ${from} ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR ${generateAntiSpamTag()}`
+                                    `/msg ${from} ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`
                                 )
                             })
                         })
 
                         break
+                }
+            }
+            // anti spam protocol
+            else if (text.startsWith("You cannot say")) {
+                bot.chat("Flagged for spam. Try again after antispam protocol.")
+
+                for (let i = 1; i <= 3; i++) {
+                    setTimeout(function () {
+                        bot.chat(`[${i}]`)
+                    }, 500)
                 }
             }
         })
