@@ -56,23 +56,6 @@ async function getBedwarsStats(uuid) {
     }
 }
 
-// generate sequence of random characters
-function generateAntiSpamTag() {
-    const set = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let res = ""
-
-    const minLength = 8;
-    const maxLength = 20;
-    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
-
-    for (let i = 0; i < length; i++) {
-        const j = Math.floor(Math.random() * set.length)
-        res += set[j]
-    }
-
-    return `[ANTISPAM: ${res}]`
-}
-
 async function startBot() {
     try {
         const session = await authflow.getMinecraftJavaToken()
@@ -92,17 +75,14 @@ async function startBot() {
 
             console.log(`>> ${text}`)
 
-            // if message is a dm or an officer chat message
-            if (text.startsWith("From") || text.startsWith("Officer")) {
+            // officer chat message
+            if (text.startsWith("Officer")) {
                 let tokens = text.split(" ")
                 let nameIndex = 0
 
                 // look for the name of the person who sent the dm
                 while (!tokens[nameIndex].endsWith(":"))
                     nameIndex++
-
-                // person who sent the message
-                const from = tokens[nameIndex].slice(0, -1)
 
                 const command = tokens[nameIndex + 1]
 
@@ -132,13 +112,24 @@ async function startBot() {
 
                                 console.log("stats found")
                                 bot.chat(
-                                    `/msg ${from} ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR ${generateAntiSpamTag()}`
+                                    `/oc ${name}: ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`
                                 )
                             })
                         })
 
                         break
                 }
+            }
+
+            // antispam protocol
+            else if (text.startsWith("You cannot say")) {
+                // send a series of 3 messages
+
+                "abc".split("").forEach((e) => {
+                    setTimeout(function () {
+                        bot.chat(`/oc ${e}`)
+                    }, 500)
+                })
             }
         })
 
