@@ -125,7 +125,9 @@ async function startBot() {
             }
             // anti spam protocol
             else if (text.startsWith("You cannot say")) {
-                bot.chat("Flagged for spam. Try again after antispam protocol.")
+                setTimeout(function () {
+                    bot.chat("Flagged for spam. Try again after antispam protocol.")
+                }, 500)
 
                 for (let i = 1; i <= 3; i++) {
                     setTimeout(function () {
