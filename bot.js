@@ -57,9 +57,13 @@ async function getBedwarsStats(uuid) {
 }
 
 // generate sequence of random characters
-function generateAntiSpamTag(length = 10) {
+function generateAntiSpamTag() {
     const set = "!@#$%^&*()_+{}[]|:;<>,.?/~`-="
     let res = ""
+    
+    const minLength = 5;
+    const maxLength = 20;
+    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
 
     for (let i = 0; i < length; i++) {
         const j = Math.floor(Math.random() * set.length)
