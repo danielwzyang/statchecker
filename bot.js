@@ -56,6 +56,19 @@ async function getBedwarsStats(uuid) {
     }
 }
 
+// generate sequence of random characters
+function generateAntiSpamTag(length = 10) {
+    const set = "!@#$%^&*()_+{}[]|:;<>,.?/~`-="
+    let res = ""
+
+    for (let i = 0; i < length; i++) {
+        const j = Math.floor(Math.random() * set.length)
+        res += set[j]
+    }
+
+    return `[ANTISPAM: ${res}]`
+}
+
 async function startBot() {
     try {
         const session = await authflow.getMinecraftJavaToken()
@@ -73,8 +86,8 @@ async function startBot() {
         bot.on("message", (msg) => {
             const text = msg.getText()
 
-            // if message is a dm
-            if (text.startsWith("From")) {
+            // if message is a dm or an officer chat message
+            if (text.startsWith("From") || text.startsWith("Officer")) {
                 console.log(`>> ${text}`)
                 let tokens = text.split(" ")
                 let nameIndex = 0
@@ -113,7 +126,9 @@ async function startBot() {
                                 if (!stats) return console.log("stats not found")
 
                                 console.log("stats found")
-                                bot.chat(`/msg ${from} ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR`)
+                                bot.chat(
+                                    `/msg ${from} ${stats.stars}✫ | ${stats.finalKills} Finals | ${stats.fkdr} FKDR | ${stats.wins} Wins | ${stats.wlr} WLR ${generateAntiSpamTag()}`
+                                )
                             })
                         })
 
@@ -126,7 +141,7 @@ async function startBot() {
             console.log("joined")
 
             // warp to home
-            setTimeout(function() {
+            setTimeout(function () {
                 bot.chat("/home")
             }, 2000)
         })
