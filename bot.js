@@ -130,7 +130,7 @@ async function startBot() {
                     setTimeout(function () {
                         console.log("<<", `/oc ${e}`)
                         bot.chat(`/oc ${e}`)
-                    }, 500 * i)
+                    }, 250 * i)
                 })
             }
         })
