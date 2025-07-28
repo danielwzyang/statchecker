@@ -1,7 +1,14 @@
 {
-  "dependencies": {
-    "dotenv": "^17.2.0",
-    "mineflayer": "^4.25.0",
-    "prismarine-auth": "^2.7.0"
-  }
+    "name": "statchecker",
+    "version": "1.0.0",
+    "main": "bot.js",
+    "scripts": {
+        "bot": "node bot.js"
+    },
+    "dependencies": {
+        "discord.js": "^14.21.0",
+        "dotenv": "^17.2.0",
+        "mineflayer": "^4.25.0",
+        "prismarine-auth": "^2.7.0"
+    }
 }
