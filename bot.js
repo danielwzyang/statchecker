@@ -66,10 +66,17 @@ class StatCheckerBot {
 
             this.mcBot.on("message", (msg) => this.handleMinecraftMessage(msg))
             this.mcBot.on("login", () => console.log("joined"))
-            this.mcBot.on("error", err => console.error("error:", err))
-            this.mcBot.on("end", () => console.log("disconnected"))
+            this.mcBot.on("error", err => {
+                console.error("error:", err)
+                process.exit(1)
+            })
+            this.mcBot.on("end", () => {
+                console.log("disconnected")
+                process.exit(1)
+            })
         } catch (err) {
             console.error("auth failed:", err)
+            process.exit(1)
         }
     }
 
